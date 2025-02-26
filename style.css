@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #2b2a33;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Poppins", serif;
+}
+
+main {
+  background-color: #1e1d24;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 10px rgba(37, 37, 37, 0.95);
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 10px;
+  width: 305px;
+  height: 85px;
+  background-color: rgb(78, 78, 78);
+  box-shadow: inset 0 0 10px rgb(37, 37, 37);
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 310px;
+}
+
+.buttons > button {
+  cursor: pointer;
+  font-size: 1.5rem;
+  height: 70px;
+  width: 70px;
+  border-radius: 10px;
+  outline: none;
+  border: 0px;
+}
+
+button:last-child {
+  flex-grow: 1;
+}
