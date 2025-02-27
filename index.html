@@ -10,31 +10,32 @@
     <main>
       <div class="calculator">
         <div class="screen">
-          <p class="history">17 + 18</p>
-          <p class="current">98</p>
+          <p class="last-number" id="last-number"></p>
+          <p class="current-number" id="current-number"></p>
         </div>
         <div class="buttons">
-          <button>AC</button>
-          <button>DEL</button>
+          <button id="clear">AC</button>
+          <button id="delete">DEL</button>
           <button>%</button>
-          <button>÷</button>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button>X</button>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button>-</button>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>+</button>
-          <button>0</button>
-          <button>.</button>
+          <button value="÷" id="divide">÷</button>
+          <button value="7" id="seven">7</button>
+          <button value="8" id="eight">8</button>
+          <button value="9" id="nine">9</button>
+          <button value="x" id="multiply">X</button>
+          <button value="4" id="four">4</button>
+          <button value="5" id="five">5</button>
+          <button value="6" id="six">6</button>
+          <button value="-" id="minus">-</button>
+          <button value="1" id="one">1</button>
+          <button value="2" id="two">2</button>
+          <button value="3" id="three">3</button>
+          <button value="+" id="plus">+</button>
+          <button value="0" id="zero">0</button>
+          <button value="." id="decimal">.</button>
           <button>=</button>
         </div>
       </div>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>
