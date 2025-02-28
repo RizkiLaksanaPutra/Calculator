@@ -1,47 +1,127 @@
 const numberButtons = document.querySelectorAll("[data-number]");
 const operatorButtons = document.querySelectorAll("[data-operator]");
-const currentNumber = document.getElementById("current-number");
+const clearButton = document.getElementById("clear");
+const deleteButton = document.getElementById("delete");
+const decimalButton = document.getElementById("decimal");
+const equalButton = document.getElementById("equal");
+const currentNumberScreen = document.getElementById("current-number");
+const lastNumberScreen = document.getElementById("last-number");
 
-let firstNumber = null;
+let firstNumber = "";
+let secondNumber = "";
 let operator = null;
+let shouldResetScreen = false;
 
-[...numberButtons].reverse().forEach((button, index) => {
-  button.addEventListener("click", () => {
-    currentNumber.textContent += index;
-    firstNumber = Number(currentNumber.textContent);
-    console.log(firstNumber);
-  });
-});
-
-function add(firstNumber, SecondNumber) {
-  return firstNumber + SecondNumber;
+function add(firstNumber, secondNumber) {
+  return firstNumber + secondNumber;
 }
 
-function substract(firstNumber, SecondNumber) {
-  return firstNumber - SecondNumber;
+function substract(firstNumber, secondNumber) {
+  return firstNumber - secondNumber;
 }
 
-function multiply(firstNumber, SecondNumber) {
-  return firstNumber * SecondNumber;
+function multiply(firstNumber, secondNumber) {
+  return firstNumber * secondNumber;
 }
 
-function divide(firstNumber, SecondNumber) {
-  return firstNumber / SecondNumber;
+function divide(firstNumber, secondNumber) {
+  return firstNumber / secondNumber;
 }
 
-function operate(operator, firstNumber, SecondNumber) {
+function remainder(firstNumber, secondNumber) {
+  return firstNumber % secondNumber;
+}
+
+function roundResult(number) {
+  return Math.round(number * 1000) / 1000;
+}
+
+function operate(operator, firstNumber, secondNumber) {
+  firstNumber = Number(firstNumber);
+  secondNumber = Number(secondNumber);
   switch (operator) {
-    case "add":
-      return add(firstNumber, SecondNumber);
-      break;
-    case "substract":
-      return substract(firstNumber, SecondNumber);
-      break;
-    case "multiply":
-      return multiply(firstNumber, SecondNumber);
-      break;
-    case "divide":
-      return divide(firstNumber, SecondNumber);
-      break;
+    case "+":
+      return add(firstNumber, secondNumber);
+    case "-":
+      return substract(firstNumber, secondNumber);
+    case "x":
+      return multiply(firstNumber, secondNumber);
+    case "÷":
+      if (secondNumber === 0) return null;
+      else return divide(firstNumber, secondNumber);
+    case "%":
+      return remainder(firstNumber, secondNumber);
+    default:
+      return null;
   }
 }
+
+function evaluate() {
+  if (operator === null || shouldResetScreen) return;
+  if (operator === "÷" && currentNumberScreen.textContent === "0") {
+    alert("You can't divide by 0!");
+    return;
+  }
+  secondNumber = currentNumberScreen.textContent;
+  currentNumberScreen.textContent = roundResult(
+    operate(operator, firstNumber, secondNumber)
+  );
+  lastNumberScreen.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+  operator = null;
+}
+
+function setOperation(newOperator) {
+  if (operator !== null) evaluate();
+  firstNumber = currentNumberScreen.textContent;
+  operator = newOperator;
+  lastNumberScreen.textContent = `${firstNumber} ${operator}`;
+  currentNumberScreen.textContent = "";
+  shouldResetScreen = true;
+}
+
+function deleteNumber() {
+  currentNumberScreen.textContent = currentNumberScreen.textContent
+    .toString()
+    .slice(0, -1);
+}
+
+function resetScreen() {
+  currentNumberScreen.textContent = "";
+  shouldResetScreen = false;
+}
+
+function clear() {
+  currentNumberScreen.textContent = "0";
+  lastNumberScreen.textContent = "";
+  firstNumber = "";
+  secondNumber = "";
+  operator = null;
+}
+
+function appendNumber(number) {
+  if (currentNumberScreen.textContent === "0" || shouldResetScreen)
+    resetScreen();
+  currentNumberScreen.textContent += number;
+}
+
+function appendDecimal() {
+  if (shouldResetScreen) resetScreen();
+  if (currentNumberScreen.textContent === "") {
+    currentNumberScreen.textContent = "0";
+  }
+  if (currentNumberScreen.textContent.includes(".")) return;
+  currentNumberScreen.textContent += ".";
+}
+
+numberButtons.forEach((button) =>
+  button.addEventListener("click", () => appendNumber(button.textContent))
+);
+
+operatorButtons.forEach((button) =>
+  button.addEventListener("click", () => setOperation(button.textContent))
+);
+
+equalButton.addEventListener("click", evaluate);
+clearButton.addEventListener("click", clear);
+deleteButton.addEventListener("click", deleteNumber);
+decimalButton.addEventListener("click", appendDecimal);
