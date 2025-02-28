@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   padding: 0;
@@ -60,8 +60,31 @@ main {
   border-radius: 10px;
   outline: none;
   border: 0px;
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+button:hover {
+  transform: scale(0.95);
 }
 
 button:last-child {
   flex-grow: 1;
+}
+
+button[data-operator]:hover {
+  background-color: rgba(131, 239, 253, 0.733);
+}
+
+button[data-number]:hover,
+#decimal:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#equal:hover {
+  background-color: rgba(81, 255, 154, 0.712);
+}
+
+#clear:hover,
+#delete:hover {
+  background-color: rgba(253, 131, 131, 0.836);
 }
