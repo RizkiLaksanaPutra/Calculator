@@ -11,6 +11,7 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = null;
 let shouldResetScreen = false;
+let shouldResetOperation = false;
 
 function add(firstNumber, secondNumber) {
   return firstNumber + secondNumber;
@@ -77,6 +78,7 @@ function setOperation(newOperator) {
   lastNumberScreen.textContent = `${firstNumber} ${operator}`;
   currentNumberScreen.textContent = "";
   shouldResetScreen = true;
+  shouldResetOperation = false;
 }
 
 function deleteNumber() {
@@ -101,6 +103,12 @@ function clear() {
 function appendNumber(number) {
   if (currentNumberScreen.textContent === "0" || shouldResetScreen)
     resetScreen();
+  if (shouldResetOperation) {
+    resetScreen();
+    clear();
+    currentNumberScreen.textContent = ""
+    shouldResetOperation = false;
+  }
   currentNumberScreen.textContent += number;
 }
 
@@ -121,7 +129,10 @@ operatorButtons.forEach((button) =>
   button.addEventListener("click", () => setOperation(button.textContent))
 );
 
-equalButton.addEventListener("click", evaluate);
+equalButton.addEventListener("click", () => {
+  evaluate();
+  shouldResetOperation = true;
+});
 clearButton.addEventListener("click", clear);
 deleteButton.addEventListener("click", deleteNumber);
 decimalButton.addEventListener("click", appendDecimal);
